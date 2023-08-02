@@ -19,7 +19,4 @@ public class ActivityController {
     public List<Activity> getAllActivities(){
         return activityService.getAllActivities();
     }
-
-
-
 }
