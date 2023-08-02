@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -3021,7 +3022,7 @@ import axios from 'axios'
                 <p>Niederschlag: {weather.current.precip_mm} mm</p>
                 <p>UV-Index {weather.current.uv}</p>
                 <p>Pollen: {weather.current.air_quality.pm2_5} und {weather.current.air_quality.pm10}</p>
-                <p>{weather.location.localtime}</p>
+                <p>{weather.location.localtime} <br/> {weather.current.last_updated}</p>
             </div>
         )
 
