@@ -10,4 +10,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ActivityRepository {
     private final List<Activity> activities = new ArrayList<>();
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
+    }
+
+    public List<Activity> getAllActivities() {
+        return activities;
+    }
 }
