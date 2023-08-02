@@ -3015,7 +3015,7 @@ import axios from 'axios'
         }, []);
         return weather === undefined ? <p>Loading...</p> : (
             <div>
-                <img src={weather.current.condition.icon}/>
+                <img src={weather.current.condition.icon} alt={"WeatherIcon"}/>
                 <h1>Stadt: {weather.location.name}</h1>
                 {/*<p>Region: {weather.location.region}</p>*/}
                 <p>Aktuelle Temperatur: {weather.current.temp_c} °c</p>
