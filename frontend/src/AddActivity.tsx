@@ -40,7 +40,6 @@ export default function AddActivity() {
             method: 'post',
             url: '/api',
             data: {
-                id: "1",
                 activityName,
                 possibleWhenWarm,
                 possibleWhenMiddle,

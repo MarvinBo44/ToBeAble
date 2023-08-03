@@ -11,8 +11,8 @@ import java.util.List;
 public class ActivityController {
     private final ActivityService activityService = new ActivityService();
     @PostMapping
-    public void addActivity(@RequestBody Activity activity){
-        activityService.addActivity(activity);
+    public Activity addActivity(@RequestBody Activity activity){
+        return activityService.addActivity(activity);
     }
 
     @GetMapping
