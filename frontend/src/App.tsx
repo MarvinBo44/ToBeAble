@@ -1,5 +1,6 @@
 import './App.css'
 import WeatherData from "./WeatherAPI.tsx";
+import AddActivity from "./AddActivity.tsx";
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <div>
         <WeatherData/>
+          <AddActivity/>
       </div>
     </>
   )
