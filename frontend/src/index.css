@@ -1,0 +1,42 @@
+*{
+    font-family: "Avenir Next", serif;
+}
+.inputField{
+    width: 110px;
+}
+.popupContainer{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    text-align: left;
+    align-items: center;
+}
+.popupItemText{
+    width: 70%;
+    color: white;
+}
+.popupItemCheckbox{
+    width: 30%;
+    color: white;
+}
+
+.popup-content {
+    margin: auto;
+    background: rgb(27, 156, 252);
+    width: 300px;
+    padding: 5px;
+}
+.popup-arrow {
+    color: rgb(37, 204, 247);
+}
+[role='tooltip'].popup-content {
+    width: 400px;
+    box-shadow: rgba(255, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+    background: rgba(0, 53, 255, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+    background: transparent;
+}
