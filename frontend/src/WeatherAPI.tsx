@@ -1,8 +1,5 @@
-
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-
-
 
     type Weather = {
                     "location": {
@@ -3025,5 +3022,4 @@ import axios from 'axios'
                 <p>{weather.location.localtime} <br/> {weather.current.last_updated}</p>
             </div>
         )
-
     }
