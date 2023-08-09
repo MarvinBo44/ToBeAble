@@ -18,7 +18,7 @@ jobs:
       - name: Build Frontend
         working-directory: frontend
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
 
       - uses: actions/upload-artifact@v3
