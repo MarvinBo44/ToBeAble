@@ -4,14 +4,14 @@ import AddActivity from "./AddActivity.tsx";
 
 function App() {
 
-  return (
-    <>
-      <div>
-        <WeatherData/>
-          <AddActivity/>
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div>
+                <WeatherData/>
+                <AddActivity/>
+            </div>
+        </>
+    )
 }
 
 export default App
