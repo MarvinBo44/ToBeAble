@@ -3007,7 +3007,7 @@ import axios from 'axios'
         useEffect(() => {
             axios({
                 // url: "http://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q="+ort+"&days=3&aqi=yes&alerts=no",
-                url: "http://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Bielefeld&days=3&aqi=yes&alerts=no",
+                url: "https://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Bielefeld&days=3&aqi=yes&alerts=no",
                 method: "get"
             }).then(function (response) {
                 setWeather(response.data);
