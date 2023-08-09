@@ -1,22 +1,28 @@
 package de.neuefische.backend;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
 public class ActivityController {
-    private final ActivityService activityService = new ActivityService();
-    @PostMapping
-    public Activity addActivity(@RequestBody Activity activity){
-        return activityService.addActivity(activity);
-    }
+
+    private ActivityService activityService;
 
     @GetMapping
     public List<Activity> getAllActivities(){
         return activityService.getAllActivities();
     }
+
+    @PostMapping
+    public Activity addActivity(@RequestBody Activity activity){
+        return activityService.addActivity(activity);
+    }
+
+
 }

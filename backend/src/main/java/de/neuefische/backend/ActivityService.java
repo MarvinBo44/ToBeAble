@@ -1,21 +1,23 @@
 package de.neuefische.backend;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
+@Data
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ActivityService {
-    private final ActivityRepository activityRepository = new ActivityRepository();
+
+    private ActivityRepository activityRepository;
 
     public Activity addActivity(Activity activity) {
-        return activityRepository.addActivity(activity);
+        return activityRepository.save(activity);
     }
 
     public List<Activity> getAllActivities() {
-        return activityRepository.getAllActivities();
+        return activityRepository.findAll();
     }
 }
