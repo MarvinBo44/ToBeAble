@@ -1,6 +1,7 @@
 import axios from "axios";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import {Typography, Button} from '@mui/material';
 import {useState} from "react";
 
 export default function AddActivity() {
@@ -13,29 +14,36 @@ export default function AddActivity() {
     const [insideActivity, setInsideActivity] = useState(false)
     const [outsideActivity, setOutsideActivity] = useState(false)
     const [activityName, setActivityName] = useState("")
-    function updatePossibleWhenWarm(){
+
+    function updatePossibleWhenWarm() {
         setPossibleWhenWarm(!possibleWhenWarm)
     }
-    function updatePossibleWhenMiddle(){
+
+    function updatePossibleWhenMiddle() {
         setPossibleWhenMiddle(!possibleWhenMiddle)
     }
-    function updatePossibleWhenCold(){
+
+    function updatePossibleWhenCold() {
         setPossibleWhenCold(!possibleWhenCold)
     }
-    function updatePossibleWhenRaining(){
+
+    function updatePossibleWhenRaining() {
         setPossibleWhenRaining(!possibleWhenRaining)
     }
-    function updatePossibleWithChildren(){
+
+    function updatePossibleWithChildren() {
         setPossibleWithChildren(!possibleWithChildren)
     }
-    function updateInsideActivity(){
+
+    function updateInsideActivity() {
         setInsideActivity(!insideActivity)
     }
-    function updateOutsideActivity(){
+
+    function updateOutsideActivity() {
         setOutsideActivity(!outsideActivity)
     }
 
-    function addActivity(){
+    function addActivity() {
         axios({
             method: 'post',
             url: '/api',
@@ -53,10 +61,9 @@ export default function AddActivity() {
     }
 
 
+
     return <div>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
+
 
 
         <Popup trigger={<button> addAktivity</button>} position="bottom center">
@@ -65,7 +72,8 @@ export default function AddActivity() {
                     <label>Name der Aktivität</label>
                 </div>
                 <div className={"popupItemCheckbox"}>
-                    <input className={"inputField"} type={"text"} value={activityName} onChange={e => setActivityName(e.target.value)}/>
+                    <input className={"inputField"} type={"text"} value={activityName}
+                           onChange={e => setActivityName(e.target.value)}/>
                 </div>
 
                 <div className={"popupItemText"}>
@@ -79,7 +87,8 @@ export default function AddActivity() {
                     <label>möglich wenn es mittelwarm ist ? </label>
                 </div>
                 <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenMiddle} checked={possibleWhenMiddle} type={"checkbox"} id={"isMiddleWarm"}/>
+                    <input onClick={updatePossibleWhenMiddle} checked={possibleWhenMiddle} type={"checkbox"}
+                           id={"isMiddleWarm"}/>
                 </div>
 
                 <div className={"popupItemText"}>
@@ -93,14 +102,16 @@ export default function AddActivity() {
                     <label>kinder</label>
                 </div>
                 <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWithChildren} checked={possibleWithChildren} type={"checkbox"} id={"withChildren"}/>
+                    <input onClick={updatePossibleWithChildren} checked={possibleWithChildren} type={"checkbox"}
+                           id={"withChildren"}/>
                 </div>
 
                 <div className={"popupItemText"}>
                     <label>regen</label>
                 </div>
                 <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenRaining} checked={possibleWhenRaining} type={"checkbox"} id={"whenRaining"}/>
+                    <input onClick={updatePossibleWhenRaining} checked={possibleWhenRaining} type={"checkbox"}
+                           id={"whenRaining"}/>
                 </div>
 
                 <div className={"popupItemText"}>
@@ -117,8 +128,11 @@ export default function AddActivity() {
                     <input onClick={updateOutsideActivity} checked={outsideActivity} type={"checkbox"} id={"outside"}/>
                 </div>
 
-                <button type={"button"} onClick={() => {addActivity()}}
-                >CLICK ME</button>
+                <button type={"button"} onClick={() => {
+                    addActivity()
+                }}
+                >CLICK ME
+                </button>
 
             </form>
         </Popup>

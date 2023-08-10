@@ -1,14 +1,14 @@
 import './App.css'
-import WeatherData from "./WeatherAPI.tsx";
-import AddActivity from "./AddActivity.tsx";
+import MenuBar from "./MenuBar.tsx";
+import SimpleDialogDemo from "./test.tsx";
 
 function App() {
 
     return (
         <>
             <div>
-                <WeatherData/>
-                <AddActivity/>
+                <MenuBar/>
+                <SimpleDialogDemo/>
             </div>
         </>
     )
