@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 type Activity = {
     id: string,
     activityName: string,
