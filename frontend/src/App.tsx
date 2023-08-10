@@ -1,6 +1,5 @@
 import './App.css'
 import MenuBar from "./MenuBar.tsx";
-import SimpleDialogDemo from "./test.tsx";
 
 function App() {
 
@@ -8,7 +7,6 @@ function App() {
         <>
             <div>
                 <MenuBar/>
-                <SimpleDialogDemo/>
             </div>
         </>
     )
