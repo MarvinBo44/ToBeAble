@@ -1,7 +1,13 @@
 
+h2{
+    text-align: center;
+}
+
 .flex-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    flex-flow: row wrap;
 }
 
 .activityOutput{
@@ -12,5 +18,12 @@
     margin: 10px;
     padding-left: 10px;
     width: 500px;
+}
+
+.btnDetails{
+    text-align: right;
+    margin-left: 440px;
+    margin-bottom: 5px;
+    border-radius: 15px;
 }
 
