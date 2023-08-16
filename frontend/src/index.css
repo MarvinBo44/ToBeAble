@@ -1,9 +1,12 @@
 *{
     font-family: "Avenir Next", serif;
+    margin: 0;
 }
+
 .inputField{
     width: 110px;
 }
+
 .popupContainer{
     display: flex;
     width: 100%;
@@ -11,10 +14,12 @@
     text-align: left;
     align-items: center;
 }
+
 .popupItemText{
     width: 70%;
     color: white;
 }
+
 .popupItemCheckbox{
     width: 30%;
     color: white;
@@ -26,9 +31,11 @@
     width: 300px;
     padding: 5px;
 }
+
 .popup-arrow {
     color: rgb(37, 204, 247);
 }
+
 [role='tooltip'].popup-content {
     width: 400px;
     box-shadow: rgba(255, 0, 0, 0.16) 0px 0px 3px;

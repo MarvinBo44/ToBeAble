@@ -1,7 +1,8 @@
 import axios from "axios";
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import {useState} from "react";
+import {Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+    FormGroup, FormControlLabel, FormLabel, Checkbox, TextField, Box} from '@mui/material';
 
 export default function AddActivity() {
 
@@ -13,29 +14,49 @@ export default function AddActivity() {
     const [insideActivity, setInsideActivity] = useState(false)
     const [outsideActivity, setOutsideActivity] = useState(false)
     const [activityName, setActivityName] = useState("")
-    function updatePossibleWhenWarm(){
+    const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+    function updatePossibleWhenWarm() {
         setPossibleWhenWarm(!possibleWhenWarm)
     }
-    function updatePossibleWhenMiddle(){
-        setPossibleWhenMiddle(!possibleWhenMiddle)
+
+    function updatePossibleWhenMiddle() {
+        setPossibleWhenMiddle(!possibleWhenMiddle);
     }
-    function updatePossibleWhenCold(){
+
+    function updatePossibleWhenCold() {
         setPossibleWhenCold(!possibleWhenCold)
     }
-    function updatePossibleWhenRaining(){
+
+    function updatePossibleWhenRaining() {
         setPossibleWhenRaining(!possibleWhenRaining)
     }
-    function updatePossibleWithChildren(){
+
+    function updatePossibleWithChildren() {
         setPossibleWithChildren(!possibleWithChildren)
     }
-    function updateInsideActivity(){
+
+    function updateInsideActivity() {
         setInsideActivity(!insideActivity)
     }
-    function updateOutsideActivity(){
+
+    function updateOutsideActivity() {
         setOutsideActivity(!outsideActivity)
     }
 
-    function addActivity(){
+    function resetAllFields() {
+        setActivityName("Name der Aktivität");
+        setOutsideActivity(false);
+        setInsideActivity(false);
+        setPossibleWithChildren(false);
+        setPossibleWhenRaining(false);
+        setPossibleWhenCold(false);
+        setPossibleWhenMiddle(false);
+        setPossibleWhenWarm(false);
+    }
+
+    function submit() {
+        setOpenDialog(false);
         axios({
             method: 'post',
             url: '/api',
@@ -49,79 +70,86 @@ export default function AddActivity() {
                 insideActivity,
                 outsideActivity
             }
+        }).then(() => {
+            resetAllFields();
         })
     }
 
+    const styles = {
+        container: {
+            display: "flex",
+            backgroundColor: "#3866B2FF",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+        }
+    };
 
-    return <div>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
-        <button onClick={addActivity}>Aktivität hinzufügen</button>
+    return <Box style={styles.container}>
+        <Button size={"small"}
+                variant={'contained'}
+                onClick={() => setOpenDialog(true)}
+        >Aktivität hinzufügen</Button>
 
+        <Dialog open={openDialog}
+                onClose={() => setOpenDialog(false)}
+                aria-labelledby={'dialog-title'}
+                aria-describedby={'dialog-description'}>
+            <DialogTitle sx={{textAlign: 'center'}} id={'dialog-title'}>Aktivität hinzufügen</DialogTitle>
+            <DialogContent>
+                <DialogContentText id={'dialog-description'}>
+                    <FormGroup>
+                        <TextField id="outlined-basic" label={"Name der Aktivität"} variant="outlined"
+                                   onChange={e => setActivityName(e.target.value)}/>
+                        <br/>
+                        <FormLabel>Bei welchen Wettersituationen ist die Aktivität möglich ?</FormLabel>
 
-        <Popup trigger={<button> addAktivity</button>} position="bottom center">
-            <form className={"popupContainer"}>
-                <div className={"popupItemText"}>
-                    <label>Name der Aktivität</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input className={"inputField"} type={"text"} value={activityName} onChange={e => setActivityName(e.target.value)}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="Warm (25°C)"
+                                          checked={possibleWhenWarm}
+                                          onChange={updatePossibleWhenWarm}/>
 
-                <div className={"popupItemText"}>
-                    <label>möglich wenn es warm ist ? </label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenWarm} checked={possibleWhenWarm} type={"checkbox"} id={"isWarm"}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="Mittel (15°C - 25°C)"
+                                          checked={possibleWhenMiddle}
+                                          onChange={() => updatePossibleWhenMiddle()}/>
 
-                <div className={"popupItemText"}>
-                    <label>möglich wenn es mittelwarm ist ? </label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenMiddle} checked={possibleWhenMiddle} type={"checkbox"} id={"isMiddleWarm"}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="Kalt (<10 °C)"
+                                          checked={possibleWhenCold}
+                                          onChange={() => updatePossibleWhenCold()}/>
 
-                <div className={"popupItemText"}>
-                    <label>möglich wenn es kalt ist ?</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenCold} checked={possibleWhenCold} type={"checkbox"} id={"isCold"}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="Regen"
+                                          checked={possibleWhenRaining}
+                                          onChange={() => updatePossibleWhenRaining()}/>
+                        <br/>
+                        <FormLabel>Wo und mit wem ist die Aktivität möglich ?</FormLabel>
 
-                <div className={"popupItemText"}>
-                    <label>kinder</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWithChildren} checked={possibleWithChildren} type={"checkbox"} id={"withChildren"}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="drinnen"
+                                          checked={insideActivity}
+                                          onChange={() => updateInsideActivity()}/>
 
-                <div className={"popupItemText"}>
-                    <label>regen</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updatePossibleWhenRaining} checked={possibleWhenRaining} type={"checkbox"} id={"whenRaining"}/>
-                </div>
+                        <FormControlLabel control={<Checkbox/>} label="draußen"
+                                          checked={outsideActivity}
+                                          onChange={() => updateOutsideActivity()}/>
 
-                <div className={"popupItemText"}>
-                    <label>drinnen</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updateInsideActivity} checked={insideActivity} type={"checkbox"} id={"inside"}/>
-                </div>
-
-                <div className={"popupItemText"}>
-                    <label>draußen</label>
-                </div>
-                <div className={"popupItemCheckbox"}>
-                    <input onClick={updateOutsideActivity} checked={outsideActivity} type={"checkbox"} id={"outside"}/>
-                </div>
-
-                <button type={"button"} onClick={() => {addActivity()}}
-                >CLICK ME</button>
-
-            </form>
-        </Popup>
-    </div>
-
+                        <FormControlLabel control={<Checkbox/>} label="mit Kindern"
+                                          checked={possibleWithChildren}
+                                          onChange={() => updatePossibleWithChildren()}/>
+                    </FormGroup>
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions style={{justifyContent: "space-between"}}>
+                <Button size={'large'}
+                        onClick={() => {
+                            resetAllFields();
+                            setOpenDialog(false)
+                        }}
+                        color={'error'}>Abbrechen
+                </Button>
+                <Button
+                    size={'large'}
+                    onClick={() => {
+                        submit()
+                    }}>Speichern
+                </Button>
+            </DialogActions>
+        </Dialog>
+    </Box>
 }
