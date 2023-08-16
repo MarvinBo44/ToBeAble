@@ -15,7 +15,8 @@ function App() {
 
 
     return (
-      <MenuBar/>
+      <>
+          <MenuBar/>
         <Routes>
             <Route path={"/"} element={<LoginPage setUser={setUser}/>}/>
             <Route path={"/register"} element={<RegisterPage/>}/>
@@ -24,6 +25,7 @@ function App() {
                 <Route path={"/home"} element={<HomePage/>}/>
             </Route>
         </Routes>
+    </>
     )
 }
 
