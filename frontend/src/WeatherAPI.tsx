@@ -1,3 +1,4 @@
+
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import LocationCityIcon from '@mui/icons-material/LocationCity';
@@ -6,6 +7,7 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import {Grid, Box, Typography} from "@mui/material";
+
 
 type Weather = {
     "location": {
@@ -3082,6 +3084,7 @@ export default function WeatherApi() {
                         <Typography>{Math.round(weather.forecast.forecastday[0].day.air_quality.pm2_5)}</Typography>
                     </Box>
                 </Grid>
+
 
                 <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
