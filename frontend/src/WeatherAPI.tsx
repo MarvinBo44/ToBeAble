@@ -3002,20 +3002,20 @@ type Weather = {
 }   //Weather Type End
 
 const styles = {
-    weatherContainer:{
+    gridContainer: {
         backgroundColor: "#3866B2FF",
         justifyContent: "space-evenly",
         alignItems: "center",
     },
-    weatherItem: {
+    gridItem: {
         backgroundColor: "white",
-        padding:5,
-        margin:10,
+        padding: 5,
+        margin: 10,
         borderRadius: 10,
-        align: "center"
+        align: "center",
     },
-    boxItem:{
-        display:"flex"
+    boxItem: {
+        display: "flex"
     }
 };
 
@@ -3035,55 +3035,61 @@ export default function WeatherApi() {
     return weather === undefined ? <p>Loading...</p> : (
 
         <Box>
-            <Grid container style={styles.weatherContainer}>
+            <Grid container style={styles.gridContainer}>
                 <Grid item>
                     <Box>
+                        <Typography sx={{color:"white", fontFamily:"Verdana", }} paddingLeft={'5px'} paddingRight={'5px'}>
+                            To Be Able
+                        </Typography>
+                    </Box>
+                </Grid>
+                <Grid item>
+                    <Box style={styles.boxItem}>
                         <img src={weather.current.condition.icon} alt={"WeatherIcon"}/>
                     </Box>
                 </Grid>
-                <Grid item style={styles.weatherItem}>
-                    <Box  style={styles.boxItem}>
+                <Grid item style={styles.gridItem}>
+                    <Box style={styles.boxItem}>
                         <ThermostatIcon color={"primary"}/>
                         <Typography>{weather.current.temp_c} °C</Typography>
                     </Box>
                 </Grid>
 
-                <Grid item style={styles.weatherItem}>
+                <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
                         <WbSunnyIcon color={"primary"}/>
                         <Typography>UV: {weather.current.uv}</Typography>
                     </Box>
                 </Grid>
 
-                <Grid item style={styles.weatherItem}>
+                <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
                         <LocationCityIcon color={"primary"}/>
                         <Typography>{weather.location.name}</Typography>
                     </Box>
                 </Grid>
 
-                <Grid item style={styles.weatherItem}>
+                <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
                         <WaterDropIcon color={"primary"}/>
                         <Typography>{weather.current.precip_mm} mm</Typography>
                     </Box>
                 </Grid>
 
-                <Grid item style={styles.weatherItem}>
+                <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
                         <LocalFloristIcon fontSize={"small"} color={"primary"}/>
                         <Typography>{Math.round(weather.forecast.forecastday[0].day.air_quality.pm2_5)}</Typography>
                     </Box>
                 </Grid>
 
-                <Grid item style={styles.weatherItem}>
+                <Grid item style={styles.gridItem}>
                     <Box style={styles.boxItem}>
                         <LocalFloristIcon color={"primary"}/>
                         <Typography>{Math.round(weather.forecast.forecastday[0].day.air_quality.pm10)}</Typography>
                     </Box>
                 </Grid>
             </Grid>
-
         </Box>
     )
 }

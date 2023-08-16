@@ -1,13 +1,12 @@
 import './App.css'
 import MenuBar from "./MenuBar.tsx";
+// import SuccessAlert from "./AddActivity.tsx";
 
 function App() {
 
     return (
         <>
-            <div>
-                <MenuBar/>
-            </div>
+            <MenuBar/>
         </>
     )
 }
