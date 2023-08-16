@@ -4,23 +4,22 @@ import {Route, Routes} from 'react-router-dom'
 import LoginPage from "./LoginPage/LoginPage.tsx";
 import RegisterPage from "./Register/Register.tsx";
 import HomePage from "./HomePage.tsx";
+import ProtectedRoute from "./ProtectedRoutes/ProtectedRoute.tsx";
+import {useState} from "react";
 
 function App() {
 
-    return (
-        // <>
-        //     <div>
-        //         <WeatherData weather={weather}/>
-        //         <AddActivity/>
-        //         <CurrentDay weather={weather}/>
-        //
-        //     </div>
-        // </>
+    const [user, setUser] = useState("")
 
+
+    return (
         <Routes>
-            <Route path={"/"} element={<LoginPage/>}/>
+            <Route path={"/"} element={<LoginPage setUser={setUser}/>}/>
             <Route path={"/register"} element={<RegisterPage/>}/>
-            <Route path={"/home"} element={<HomePage/>}/>
+
+            <Route element={<ProtectedRoute user={user}/>}>
+                <Route path={"/home"} element={<HomePage/>}/>
+            </Route>
         </Routes>
     )
 }
