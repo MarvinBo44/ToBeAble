@@ -19,9 +19,9 @@ type ActivityDataProps = {
     dayActivity: Activity
 }
 
-export default function CurrentDay({ weather }) {
+export default function DayView({ weather }) {
 
-    const [dayActivities, setDayActivity] = useState<[]>([]);
+    const [dayActivities, setDayActivity] = useState<Activity[]>([]);
 
     useEffect(() => {
         axios({
@@ -58,27 +58,42 @@ export default function CurrentDay({ weather }) {
     const dayAfterTomorrowWeather = getForecastByDate(new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0]);
 
     function isWarm() {
-        if (weather.current.temp_c >= 25) return true;
+        if (weather.current.temp_c >= 25) {
+            return true;
+        }
     }
 
     function isMiddle() {
-        if (weather.current.temp_c <= 24 && weather.current.temp_c >= 17) return true;
+        if (weather.current.temp_c <= 24 && weather.current.temp_c >= 17){
+            return true;
+        }
     }
 
     function isCold() {
-        if (weather.current.temp_c <= 16) return true;
+        if (weather.current.temp_c <= 16) {
+            return true;
+        }
     }
 
     function isRaining() {
-        if (weather.current.precip_mm > 0) return true;
+        if (weather.current.precip_mm > 0) {
+            return true;
+        }
     }
 
     const filterAcitivities = dayActivities.filter(activity =>
+        // (activity.possibleWhenRaining === isRaining() || !isRaining()) &&
+        (activity.possibleWhenWarm === isWarm()) &&
+        (activity.possibleWhenMiddle === isMiddle()) &&
+        (activity.possibleWhenCold === isCold())
+    );
+
+/*        const filterAcitivities = dayActivities.filter(activity =>
         (activity.possibleWhenRaining || !isRaining()) &&
         (activity.possibleWhenWarm || !isWarm()) &&
         (activity.possibleWhenMiddle || !isMiddle()) &&
         (activity.possibleWhenCold || !isCold())
-    );
+        );*/
 
     return (
         <div className={"flex-container"}>

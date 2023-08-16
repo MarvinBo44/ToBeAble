@@ -1,6 +1,7 @@
 import WeatherApi from "./WeatherAPI.tsx";
 import AddActivity from "./AddActivity.tsx";
 import {Box} from '@mui/material';
+import LogoutButton from "./LogoutButton.tsx";
 
 const styles = {
     menubar: {
@@ -11,8 +12,9 @@ const styles = {
 export default function MenuBar() {
     return <Box>
         <Box style={styles.menubar}>
-            <WeatherApi></WeatherApi>
-            <AddActivity></AddActivity>
+            <WeatherApi/>
+            <AddActivity/>
+            <LogoutButton/>
         </Box>
     </Box>
 }
