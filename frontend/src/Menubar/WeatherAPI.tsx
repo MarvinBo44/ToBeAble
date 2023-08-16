@@ -3027,7 +3027,7 @@ export default function WeatherApi() {
 
     useEffect(() => {
         axios({
-            url: "https://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Bielefeld&days=3&aqi=yes&alerts=yes",
+            url: "https://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Nordpol&days=3&aqi=yes&alerts=yes",
             method: "get"
         }).then(function (response) {
             setWeather(response.data);
