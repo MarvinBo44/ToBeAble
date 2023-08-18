@@ -1,21 +1,26 @@
 import {useNavigate} from "react-router-dom";
-import {FormEvent} from "react";
 import axios from "axios";
+import {Button} from "@mui/material";
 
 
 export default function LogoutButton() {
     const nav = useNavigate();
-    function logout(event:FormEvent<HTMLFormElement>){
-        event.preventDefault()
+
+    function logout() {
         axios.post("/api/user/logout")
             .then((response) => console.log(response.data))
-            .then(()=>nav("/"))
+            .then(() => nav("/"))
             .catch((error) => console.log(error))
     }
 
-    return(
-        <form onSubmit={logout}>
-            <button>logout</button>
-        </form>
+    return (
+        <>
+            <Button
+                size={"medium"}
+                variant={'contained'}
+                color={"error"}
+                onClick={() => logout()}
+            >logout</Button>
+        </>
     );
 }

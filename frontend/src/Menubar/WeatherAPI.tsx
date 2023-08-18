@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import LocationCityIcon from '@mui/icons-material/LocationCity';
@@ -7,7 +6,6 @@ import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import {Grid, Box, Typography} from "@mui/material";
-
 
 type Weather = {
     "location": {
@@ -3001,23 +2999,16 @@ type Weather = {
             }
         ]
     }
-}   //Weather Type End
+}
 
 const styles = {
-    gridContainer: {
-        backgroundColor: "#3866B2FF",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-    },
     gridItem: {
         backgroundColor: "white",
         padding: 5,
-        margin: 10,
         borderRadius: 10,
-        align: "center",
     },
     boxItem: {
-        display: "flex"
+        display:'flex'
     }
 };
 
@@ -3027,7 +3018,7 @@ export default function WeatherApi() {
 
     useEffect(() => {
         axios({
-            url: "https://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Nordpol&days=3&aqi=yes&alerts=yes",
+            url: "https://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q=Berlin&days=3&aqi=yes&alerts=yes",
             method: "get"
         }).then(function (response) {
             setWeather(response.data);
@@ -3035,16 +3026,12 @@ export default function WeatherApi() {
     }, []);
 
     return weather === undefined ? <p>Loading...</p> : (
-
         <Box>
-            <Grid container style={styles.gridContainer}>
-                <Grid item>
-                    <Box>
-                        <Typography sx={{color:"white", fontFamily:"Verdana", }} paddingLeft={'5px'} paddingRight={'5px'}>
-                            To Be Able
-                        </Typography>
-                    </Box>
-                </Grid>
+            <Grid container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap={2}>
                 <Grid item>
                     <Box style={styles.boxItem}>
                         <img src={weather.current.condition.icon} alt={"WeatherIcon"}/>
