@@ -1,8 +1,10 @@
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import {useState} from "react";
-import {Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-    FormGroup, FormControlLabel, FormLabel, Checkbox, TextField, Box} from '@mui/material';
+import {
+    Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+    FormGroup, FormControlLabel, FormLabel, Checkbox, TextField
+} from '@mui/material';
 
 export default function AddActivity() {
 
@@ -75,17 +77,9 @@ export default function AddActivity() {
         })
     }
 
-    const styles = {
-        container: {
-            display: "flex",
-            backgroundColor: "#3866B2FF",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-        }
-    };
-
-    return <Box style={styles.container}>
+    return <>
         <Button size={"small"}
+                color={"info"}
                 variant={'contained'}
                 onClick={() => setOpenDialog(true)}
         >Aktivität hinzufügen</Button>
@@ -151,5 +145,5 @@ export default function AddActivity() {
                 </Button>
             </DialogActions>
         </Dialog>
-    </Box>
+    </>
 }

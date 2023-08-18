@@ -1,6 +1,7 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 
 
 export default function RegisterPage() {
@@ -10,16 +11,7 @@ export default function RegisterPage() {
 
     const nav = useNavigate();
 
-    function onChangeHandlerUsername(event:ChangeEvent<HTMLInputElement>){
-        setUsername(event.target.value)
-    }
-
-    function onChnageHandlerPassword(event:ChangeEvent<HTMLInputElement>){
-        setPassword(event.target.value)
-    }
-
-    function registrieren(event:FormEvent<HTMLFormElement>){
-        event.preventDefault();
+    function registrieren(){
         axios.post("/api/user/register", {username, password})
             .then(() => nav("/home"))
             .catch((error) => console.log(error));
@@ -27,14 +19,52 @@ export default function RegisterPage() {
     }
 
     return(
-        <div>
-            <h1>Registrieren</h1>
-            <form onSubmit={registrieren}>
-                <input type={"text"} id={"username"} placeholder={"enter your username"} required={true} onChange={onChangeHandlerUsername}/>
-                <input type={"password"} id={"password"} placeholder={"*****************"} required={true} onChange={onChnageHandlerPassword}/>
-                <button>Jetzt registrieren</button>
-            </form>
-            <button><Link to={"/"}>I have an login</Link></button>
-        </div>
+        <>
+            <Grid container={true}
+                  direction={"column"}
+                  alignItems={"center"}
+                  p={"2%"}
+            >
+                <Grid container={true}
+                      maxWidth={'350px'}
+                      direction={'column'}
+                      alignItems={'center'}
+                >
+                    <Typography variant={"h2"}>
+                        Registrieren
+                    </Typography>
+                    <br/>
+                    <TextField id="username"
+                               label={"Username"}
+                               variant="outlined"
+                               fullWidth={true}
+                               onChange={e => setUsername(e.target.value)}
+                    />
+                    <br/>
+                    <TextField id="password"
+                               type={'password'}
+                               label={"Passwort"}
+                               variant="outlined"
+                               fullWidth={true}
+                               onChange={e => setPassword(e.target.value)}
+                    />
+                    <br/>
+                </Grid>
+                <Grid container={true}
+                      justifyContent={"space-between"}
+                      width={'350px'}
+                >
+                    <Button onClick={() => {registrieren()}}
+                            variant={'outlined'}>
+                        Registrieren
+                    </Button>
+                    <Button component={Link}
+                            to={'/'}
+                            variant={'outlined'}>
+                        zum Login
+                    </Button>
+                </Grid>
+            </Grid>
+        </>
     );
 }
