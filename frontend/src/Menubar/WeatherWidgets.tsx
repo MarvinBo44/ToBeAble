@@ -10,6 +10,7 @@ import {Weather} from "../HomePage.tsx";
 
 type WeatherProps = {
     weather: Weather | undefined;
+    city: string;
 }
 
 const styles = {

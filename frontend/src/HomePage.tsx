@@ -4,6 +4,7 @@ import axios from "axios";
 import MenuBar from "./Menubar/MenuBar.tsx";
 import Settings from "./Settings.tsx";
 
+
 export type Weather = {
     "location": {
         "name": string,
@@ -3012,6 +3013,7 @@ export type Activity = {
 
 export default function HomePage(){
 
+    const [city, setCity] = useState<string>("Bielefeld")
     const [weather, setWeather] = useState<Weather | undefined>(undefined);
     const [dayActivities, setDayActivity] = useState<Activity[]>([]);
 
@@ -3026,24 +3028,29 @@ export default function HomePage(){
 
     useEffect(() => {
         gettingActivity()
-    }, [gettingActivity]);
+    }, []);
+
 
 
     useEffect(() => {
         axios({
             // url: "http://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q="+ort+"&days=3&aqi=yes&alerts=no",
-            url: "https://api.weatherapi.com/v1/forecast.json?key=dcf0dc2ec78e416e81375800232108&q=Berlin&days=3&aqi=yes&alerts=no",
+            url: "https://api.weatherapi.com/v1/forecast.json?key=dcf0dc2ec78e416e81375800232108&q="+city+"&days=3&aqi=yes&alerts=no",
             method: "get"
         }).then(function (response) {
             setWeather(response.data);
         });
-    }, []);
+    }, [city]);
+
+    console.log(city)
+    console.log("https://api.weatherapi.com/v1/forecast.json?key=dcf0dc2ec78e416e81375800232108&q="+city+"&days=3&aqi=yes&alerts=no")
 
     return (
         <>
-            {weather != undefined && <MenuBar weather={weather}/>}
-            <Settings setDayActivity={setDayActivity}/>
+            {weather != undefined && <MenuBar weather={weather} city={city}/>}
+            <Settings setDayActivity={setDayActivity} setCity={setCity}/>
             {weather != undefined && <DayView weather={weather} dayActivities={dayActivities}/>}
+            {/*<SearchCity setCity={setCity}></SearchCity>*/}
         </>
     )
 }

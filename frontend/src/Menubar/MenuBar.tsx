@@ -5,6 +5,7 @@ import {Weather} from "../HomePage.tsx";
 
 type WeatherProps = {
     weather: Weather | undefined;
+    city: string;
 }
 
 
@@ -21,7 +22,7 @@ export default function MenuBar(props: WeatherProps) {
             color={"white"}
         fontFamily={"Copperplate, Papyrus, fantasy"}>To Be Able
         </Typography>
-        <WeatherWidgets weather={props.weather}/>
+        <WeatherWidgets weather={props.weather} city={props.city}/>
         <LogoutButton/>
     </Grid>
 }
