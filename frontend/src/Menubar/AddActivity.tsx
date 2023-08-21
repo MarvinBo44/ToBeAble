@@ -2,11 +2,14 @@ import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import {useState} from "react";
 import {
-    Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-    FormGroup, FormControlLabel, FormLabel, Checkbox, TextField
-} from '@mui/material';
+        Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+        FormGroup, FormControlLabel, FormLabel, Checkbox, TextField
+        } from '@mui/material';
+import {useNavigate} from "react-router-dom";
 
-export default function AddActivity() {
+
+
+export default function AddActivity(props) {
 
     const [possibleWhenWarm, setPossibleWhenWarm] = useState(false)
     const [possibleWhenMiddle, setPossibleWhenMiddle] = useState(false)
@@ -34,17 +37,17 @@ export default function AddActivity() {
         setPossibleWhenRaining(!possibleWhenRaining)
     }
 
-    function updatePossibleWithChildren() {
-        setPossibleWithChildren(!possibleWithChildren)
-    }
-
-    function updateInsideActivity() {
-        setInsideActivity(!insideActivity)
-    }
-
-    function updateOutsideActivity() {
-        setOutsideActivity(!outsideActivity)
-    }
+    // function updatePossibleWithChildren() {
+    //     setPossibleWithChildren(!possibleWithChildren)
+    // }
+    //
+    // function updateInsideActivity() {
+    //     setInsideActivity(!insideActivity)
+    // }
+    //
+    // function updateOutsideActivity() {
+    //     setOutsideActivity(!outsideActivity)
+    // }
 
     function resetAllFields() {
         setActivityName("Name der Aktivität");
@@ -57,7 +60,9 @@ export default function AddActivity() {
         setPossibleWhenWarm(false);
     }
 
-    function submit() {
+        const navigate = useNavigate()
+
+        function submit() {
         setOpenDialog(false);
         axios({
             method: 'post',
@@ -73,9 +78,14 @@ export default function AddActivity() {
                 outsideActivity
             }
         }).then(() => {
-            resetAllFields();
-        })
-    }
+                resetAllFields();
+                axios.get('/api').then((data) => props.setDayActivity(data.data))
+                navigate('/home')
+            }
+            );
+        }
+
+
 
     return <>
         <Button size={"small"}
@@ -112,20 +122,20 @@ export default function AddActivity() {
                         <FormControlLabel control={<Checkbox/>} label="Regen"
                                           checked={possibleWhenRaining}
                                           onChange={() => updatePossibleWhenRaining()}/>
-                        <br/>
-                        <FormLabel>Wo und mit wem ist die Aktivität möglich ?</FormLabel>
+                        {/*<br/>*/}
+                        {/*<FormLabel>Wo und mit wem ist die Aktivität möglich ?</FormLabel>*/}
 
-                        <FormControlLabel control={<Checkbox/>} label="drinnen"
-                                          checked={insideActivity}
-                                          onChange={() => updateInsideActivity()}/>
+                        {/*<FormControlLabel control={<Checkbox/>} label="drinnen"*/}
+                        {/*                  checked={insideActivity}*/}
+                        {/*                  onChange={() => updateInsideActivity()}/>*/}
 
-                        <FormControlLabel control={<Checkbox/>} label="draußen"
-                                          checked={outsideActivity}
-                                          onChange={() => updateOutsideActivity()}/>
+                        {/*<FormControlLabel control={<Checkbox/>} label="draußen"*/}
+                        {/*                  checked={outsideActivity}*/}
+                        {/*                  onChange={() => updateOutsideActivity()}/>*/}
 
-                        <FormControlLabel control={<Checkbox/>} label="mit Kindern"
-                                          checked={possibleWithChildren}
-                                          onChange={() => updatePossibleWithChildren()}/>
+                        {/*<FormControlLabel control={<Checkbox/>} label="mit Kindern"*/}
+                        {/*                  checked={possibleWithChildren}*/}
+                        {/*                  onChange={() => updatePossibleWithChildren()}/>*/}
                     </FormGroup>
                 </DialogContentText>
             </DialogContent>
