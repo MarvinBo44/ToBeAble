@@ -1,3 +1,6 @@
+*{
+
+}
 
 h2{
     text-align: center;
@@ -5,9 +8,9 @@ h2{
 
 .flex-container {
     display: flex;
+    justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
-    flex-flow: row wrap;
 }
 
 .activityOutput{
@@ -17,7 +20,7 @@ h2{
     border-radius: 15px;
     margin: 10px;
     padding-left: 10px;
-    width: 500px;
+    width: 350px;
 }
 
 .btnDetails{
@@ -27,3 +30,8 @@ h2{
     border-radius: 15px;
 }
 
+.activityBox{
+    font-family: "Roboto", Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: center;
+}

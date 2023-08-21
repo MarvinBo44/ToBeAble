@@ -4,7 +4,7 @@ import {Weather, Activity} from "./HomePage.tsx";
 
 type WeatherProps = {
     weather: Weather | undefined;
-    dayActivities: Activity;
+    dayActivities: Activity[];
 }
 
 
@@ -48,13 +48,13 @@ export default function DayView(props: WeatherProps) {
     }
 
     function isMiddle() {
-        if (props.weather.current.temp_c <= 24 && props.weather.current.temp_c >= 17){
+        if (props.weather.current.temp_c >= 10 && props.weather.current.temp_c <= 24){
             return true;
         }
     }
 
     function isCold() {
-        if (props.weather.current.temp_c <= 16) {
+        if (props.weather.current.temp_c < 10) {
             return true;
         }
     }
@@ -68,7 +68,8 @@ export default function DayView(props: WeatherProps) {
     const filterAcitivities = props.dayActivities.filter((activity) =>{
         return (activity.possibleWhenWarm === isWarm()  ||
             activity.possibleWhenMiddle === isMiddle()  ||
-            activity.possibleWhenCold === isCold()) && (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRaining)
+            activity.possibleWhenCold === isCold()) &&
+            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRaining)
     });
 
         // const filterAcitivities = props.dayActivities.filter(activity =>
@@ -85,11 +86,11 @@ export default function DayView(props: WeatherProps) {
                     <div>
                         {/*<h2>{getCurrentDate()}</h2>*/}
                         <h2>Heute</h2>
-                        <ul>
+                        <div className={"activityBox"}>
                             {filterAcitivities.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
-                        </ul>
+                        </div>
                     </div>
                 )}
             </div>
@@ -98,11 +99,11 @@ export default function DayView(props: WeatherProps) {
                     <div>
                         {/*<h2>{tomorrowWeather.date}</h2>*/}
                         <h2>Morgen</h2>
-                        <ul>
+                        <div className={"activityBox"}>
                             {filterAcitivities.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
-                        </ul>
+                        </div>
                     </div>
                 ) : <p>No forecast for tomorrow available</p>}
             </div>
@@ -111,11 +112,11 @@ export default function DayView(props: WeatherProps) {
                     <div>
                         {/*<h2>{dayAfterTomorrowWeather.date}</h2>*/}
                         <h2>Übermorgen</h2>
-                        <ul>
+                        <div className={"activityBox"}>
                             {filterAcitivities.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
-                        </ul>
+                        </div>
                     </div>
                 ) : <p>keine Daten verfügbar</p>}
             </div>
