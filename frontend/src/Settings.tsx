@@ -1,7 +1,7 @@
 import AddActivity from "./Menubar/AddActivity.tsx";
 import {Box, Grid, TextField} from "@mui/material";
 
-export default function Settings() {
+export default function Settings(props) {
     return <>
         <Grid container={true}
               justifyContent={'center'}
@@ -20,8 +20,8 @@ export default function Settings() {
                   gap={'20px'}
                   wrap={'wrap'}
             >
-                <AddActivity/>
-                <TextField color={"warning"} size={"small"} placeholder={"Berlin"}
+                <AddActivity setDayActivity={props.setDayActivity}/>
+                <TextField color={"warning"} size={"small"} placeholder={"Stadt"}
                            InputProps={{style: {background: 'white'}}}></TextField>
             </Grid>
         </Grid>

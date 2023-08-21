@@ -1,9 +1,16 @@
-import WeatherApi from "./WeatherAPI.tsx";
+import WeatherWidgets from "./WeatherWidgets.tsx";
 import {Grid, Typography} from '@mui/material';
 import LogoutButton from "./LogoutButton.tsx";
+import {Weather} from "../HomePage.tsx";
 
-export default function MenuBar() {
-    return <Grid container
+type WeatherProps = {
+    weather: Weather | undefined;
+}
+
+
+export default function MenuBar(props: WeatherProps) {
+    return props.weather === undefined ? <div>loading</div> :
+    <Grid container
                  direction="row"
                  justifyContent="space-around"
                  alignItems="center"
@@ -14,7 +21,7 @@ export default function MenuBar() {
             color={"white"}
         fontFamily={"Copperplate, Papyrus, fantasy"}>To Be Able
         </Typography>
-        <WeatherApi/>
+        <WeatherWidgets weather={props.weather}/>
         <LogoutButton/>
     </Grid>
 }
