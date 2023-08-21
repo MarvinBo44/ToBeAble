@@ -2,7 +2,7 @@
 
 
 // import {useState} from "react";
-import {Button, FormGroup, TextField} from "@mui/material";
+import {Box, Button, FormGroup, Grid, TextField} from "@mui/material";
 import {useState} from "react";
 
 export default function SearchCity(props) {
@@ -21,14 +21,21 @@ export default function SearchCity(props) {
     };
 
     return (
-        <FormGroup>
+        <Grid container={true}
+        flexDirection={'row'}>
             <TextField
                 id="outlined-basic"
                 label={"Name der Stadt"}
                 variant="outlined"
                 value={inputValue}
+                size={'small'}
+                InputProps={{style: {background: 'white'}}}
                 onChange={handleInputChange}
-            /><Button onClick={handleClick}>ok</Button>
-        </FormGroup>
+            /><Button
+            onClick={handleClick}
+            variant={"contained"}
+            color={'info'}
+        >ok</Button>
+        </Grid>
     );
 }

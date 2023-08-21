@@ -111,7 +111,7 @@ export default function AddActivity(props) {
                                           checked={possibleWhenWarm}
                                           onChange={updatePossibleWhenWarm}/>
 
-                        <FormControlLabel control={<Checkbox/>} label="Mittel (15°C - 25°C)"
+                        <FormControlLabel control={<Checkbox/>} label="Mittel (15°C - 24°C)"
                                           checked={possibleWhenMiddle}
                                           onChange={() => updatePossibleWhenMiddle()}/>
 

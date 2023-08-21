@@ -1,15 +1,31 @@
 import AddActivity from "./Menubar/AddActivity.tsx";
-import {Box, Grid, TextField} from "@mui/material";
+import {Box, Button, Grid, TextField} from "@mui/material";
 import SearchCity from "./SearchCity.tsx";
+import {useState} from "react";
 
 export default function Settings(props) {
+
+    // Local state to hold the current value of the input
+    const [inputValue, setInputValue] = useState('');
+
+    // Handler function for the TextField's onChange event
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+    // Handler function for the button's onClick event
+    const handleClick = () => {
+        props.setCity(inputValue);
+    };
+
+
     return <>
         <Grid container={true}
               justifyContent={'center'}
               marginBottom={'2%'}
         >
             <Box position={'absolute'}
-                 width={'800px'}
+                 width={'500px'}
                  sx={{
                      borderTop: 65, borderTopColor: "#3866B2FF",
                      borderLeft: 100, borderLeftColor: 'transparent',
@@ -18,11 +34,23 @@ export default function Settings(props) {
             <Grid container={true}
                   p={'10px'}
                   width={'fit-content'}
-                  gap={'20px'}
+                  gap={'10px'}
                   wrap={'wrap'}
             >
                 <AddActivity setDayActivity={props.setDayActivity}/>
-                <SearchCity setCity={props.setCity}/>
+                {/*<SearchCity setCity={props.setCity}/>*/}
+                <TextField
+                    variant={'outlined'}
+                    value={inputValue}
+                    size={'small'}
+                    placeholder={'Name der Stadt'}
+                    InputProps={{style: {background: 'white'}}}
+                    onChange={handleInputChange}
+                /><Button
+                onClick={handleClick}
+                variant={"contained"}
+                color={'info'}
+            >ok</Button>
             </Grid>
         </Grid>
     </>
