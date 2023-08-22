@@ -1,6 +1,8 @@
 import './App.css';
 
 import {Weather, Activity} from "./HomePage.tsx";
+import {Box, Grid, Typography} from "@mui/material";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
 
 type WeatherProps = {
     weather: Weather | undefined;
@@ -15,11 +17,9 @@ export default function DayView(props: WeatherProps) {
 
     function ActivityCard(props: ActivityDataProps) {
         return (
-            <li className={"activityOutput"}>
-                <h1>{props.dayActivity.activityName}</h1>
-                {/*<p>{props.dayActivity.id}</p>*/}
-                {/*<button className={"btnDetails"}>details</button>*/}
-            </li>
+            <div className={"activityOutput"}>
+                <h4>{props.dayActivity.activityName}</h4>
+            </div>
         )
     }
 
@@ -146,46 +146,103 @@ export default function DayView(props: WeatherProps) {
         (activity.possibleWhenCold || !isColdDayAfterTomorrow())
     );
 
+    const styles = {
+        gridItem: {
+            backgroundColor: "white",
+            padding: 5,
+            borderRadius: 10,
+        },
+        boxItem: {
+            display:'flex'
+        }
+    };
 
     return props.weather === undefined ? <div>loading...</div> : (
         <div className={"flex-container"}>
             <div className={"currentDay"}>
                 {props.dayActivities.length === 0 ? <p>loading...</p> : (
-                    <div>
-                        {/*<h2>{getCurrentDate()}</h2>*/}
-                        <h2>Heute</h2>
-                        <div className={"activityBox"}>
-                            {filterAcitivitiesToday.map(daily =>
-                                <ActivityCard key={daily.id} dayActivity={daily} />
-                            )}
-                        </div>
-                    </div>
+                    <Box height={'64px'} display={'flex'}>
+                        <Grid container
+                              direction="row"
+                              justifyContent="center"
+                              alignItems={'center'}
+                        >
+                            <Typography variant={"h4"}>Heute</Typography>
+                        </Grid>
+                    </Box>
                 )}
+                <div className={"activityBox"}>
+                    {filterAcitivitiesToday.map(daily =>
+                        <ActivityCard key={daily.id} dayActivity={daily} />
+                    )}
+                </div>
             </div>
             <div className={"tomorrow"}>
                 {tomorrowWeather ? (
-                    <div>
+                    <>
                         {/*<h2>{tomorrowWeather.date}</h2>*/}
-                        <h2>Morgen</h2>
+                        <Box>
+                            <Grid container
+                                  direction="row"
+                                  justifyContent="center"
+                                  alignItems="center"
+                                  gap={2}>
+                                <Grid item>
+                                    <Typography variant={"h4"}>Morgen</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box style={styles.boxItem}>
+                                        <img src={props.weather?.forecast.forecastday[1].day.condition.icon} alt={"WeatherIcon"}/>
+                                    </Box>
+                                </Grid>
+                                <Grid item style={styles.gridItem}>
+                                    <Box style={styles.boxItem}>
+                                        <ThermostatIcon color={"primary"}/>
+                                        <Typography>{props.weather?.forecast.forecastday[1].day.maxtemp_c} °C</Typography>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
                         <div className={"activityBox"}>
                             {filterAcitivitiesTomorrow.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
                         </div>
-                    </div>
+                    </>
                 ) : <p>No forecast for tomorrow available</p>}
             </div>
             <div className={"theDayAftertTomorrow"}>
                 {dayAfterTomorrowWeather ? (
-                    <div>
+                    <>
                         {/*<h2>{dayAfterTomorrowWeather.date}</h2>*/}
-                        <h2>Übermorgen</h2>
+                        <Box>
+                            <Grid container
+                                  direction="row"
+                                  justifyContent="center"
+                                  alignItems="center"
+                                  gap={2}>
+                                <Grid item>
+                                    <Typography variant={"h4"}>Übermorgen</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Box style={styles.boxItem}>
+                                        <img src={props.weather?.forecast.forecastday[2].day.condition.icon} alt={"WeatherIcon"}/>
+                                    </Box>
+                                </Grid>
+                                <Grid item style={styles.gridItem}>
+                                    <Box style={styles.boxItem}>
+                                        <ThermostatIcon color={"primary"}/>
+                                        <Typography>{props.weather?.forecast.forecastday[2].day.maxtemp_c} °C</Typography>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                        </Box>
                         <div className={"activityBox"}>
                             {filterAcitivitiesDayAfterTomorrow.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
                         </div>
-                    </div>
+                    </>
                 ) : <p>keine Daten verfügbar</p>}
             </div>
         </div>
