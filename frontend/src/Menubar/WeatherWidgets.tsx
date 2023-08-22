@@ -6,8 +6,6 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import {Grid, Box, Typography} from "@mui/material";
 import {Weather} from "../HomePage.tsx";
 
-
-
 type WeatherProps = {
     weather: Weather | undefined;
     city: string;
@@ -25,7 +23,6 @@ const styles = {
 };
 
 export default function WeatherWidgets(props:WeatherProps) {
-
 
     return props.weather === undefined ? <p>Loading...</p> : (
         <Box>

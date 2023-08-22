@@ -1,21 +1,18 @@
-// import {TextField} from "@mui/material";
+import {Button, Grid, TextField} from "@mui/material";
+import {ChangeEvent, useState} from "react";
 
+type Props = {
+    setCity: (newCity: string) => void
+};
 
-// import {useState} from "react";
-import {Box, Button, FormGroup, Grid, TextField} from "@mui/material";
-import {useState} from "react";
+export default function SearchCity(props: Props) {
 
-export default function SearchCity(props) {
-
-    // Local state to hold the current value of the input
     const [inputValue, setInputValue] = useState('');
 
-    // Handler function for the TextField's onChange event
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
 
-    // Handler function for the button's onClick event
     const handleClick = () => {
         props.setCity(inputValue);
     };

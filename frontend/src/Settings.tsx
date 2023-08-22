@@ -1,15 +1,20 @@
 import AddActivity from "./Menubar/AddActivity.tsx";
 import {Box, Button, Grid, TextField} from "@mui/material";
-import SearchCity from "./SearchCity.tsx";
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
+import {Activity} from "./HomePage.tsx";
 
-export default function Settings(props) {
+type Props = {
+    setDayActivity: (newActivities: Activity[]) => void,
+    setCity: (newCity: string) => void
+}
+
+export default function Settings(props: Props) {
 
     // Local state to hold the current value of the input
     const [inputValue, setInputValue] = useState('');
 
     // Handler function for the TextField's onChange event
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
 
