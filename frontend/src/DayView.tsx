@@ -63,7 +63,7 @@ export default function DayView(props: WeatherProps) {
     }
     function isMiddleTomorrow() {
         if (props.weather != undefined) {
-            if (props.weather.forecast.forecastday[1].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[0].day.maxtemp_c <= 24) {
+            if (props.weather.forecast.forecastday[1].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[1].day.maxtemp_c <= 24) {
                 return true;
             }
         }
@@ -71,7 +71,7 @@ export default function DayView(props: WeatherProps) {
 
     function isMiddleDayAfterTomorrow() {
         if (props.weather != undefined) {
-            if (props.weather.forecast.forecastday[2].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[1].day.maxtemp_c <= 24) {
+            if (props.weather.forecast.forecastday[2].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[2].day.maxtemp_c <= 24) {
                 return true;
             }
         }
@@ -111,7 +111,7 @@ export default function DayView(props: WeatherProps) {
     }
     function isRainingTomorrow() {
         if (props.weather != undefined) {
-            if (props.weather.forecast.forecastday[1].day.daily_will_it_rain > 0) {
+            if (props.weather.forecast.forecastday[1].day.daily_chance_of_rain > 0) {
                 return true;
             }
         }
@@ -119,32 +119,33 @@ export default function DayView(props: WeatherProps) {
 
     function isRainingDayAfterTomorrow() {
         if (props.weather != undefined) {
-            if (props.weather.forecast.forecastday[2].day.daily_will_it_rain > 0) {
+            if (props.weather.forecast.forecastday[2].day.daily_chance_of_rain > 0) {
                 return true;
             }
         }
     }
 
-    const filterAcitivitiesToday = props.dayActivities.filter((activity) =>{
-        return (activity.possibleWhenWarm === isWarmToday()  ||
-            activity.possibleWhenMiddle === isMiddleToday()  ||
-            activity.possibleWhenCold === isColdToday()) &&
-            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingToday)
-    });
+    const filterAcitivitiesToday = props.dayActivities.filter(activity =>
+        (activity.possibleWhenRaining || !isRainingToday()) &&
+        (activity.possibleWhenWarm || !isWarmToday()) &&
+        (activity.possibleWhenMiddle || !isMiddleToday()) &&
+        (activity.possibleWhenCold || !isColdToday())
+    );
 
-    const filterAcitivitiesTomorrow = props.dayActivities.filter((activity) =>{
-        return (activity.possibleWhenWarm === isWarmTomorrow()  ||
-                activity.possibleWhenMiddle === isMiddleTomorrow()  ||
-                activity.possibleWhenCold === isColdTomorrow()) &&
-            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingTomorrow())
-    });
+    const filterAcitivitiesTomorrow = props.dayActivities.filter(activity =>
+        (activity.possibleWhenRaining || !isRainingTomorrow()) &&
+        (activity.possibleWhenWarm || !isWarmTomorrow()) &&
+        (activity.possibleWhenMiddle || !isMiddleTomorrow()) &&
+        (activity.possibleWhenCold || !isColdTomorrow())
+    );
 
-    const filterAcitivitiesDayAfterTomorrow = props.dayActivities.filter((activity) =>{
-        return (activity.possibleWhenWarm === isWarmDayAfterTomorrow()  ||
-                activity.possibleWhenMiddle === isMiddleDayAfterTomorrow()  ||
-                activity.possibleWhenCold === isColdDayAfterTomorrow()) &&
-            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingDayAfterTomorrow())
-    });
+    const filterAcitivitiesDayAfterTomorrow = props.dayActivities.filter(activity =>
+        (activity.possibleWhenRaining || !isRainingDayAfterTomorrow()) &&
+        (activity.possibleWhenWarm || !isWarmDayAfterTomorrow()) &&
+        (activity.possibleWhenMiddle || !isMiddleDayAfterTomorrow()) &&
+        (activity.possibleWhenCold || !isColdDayAfterTomorrow())
+    );
+
 
     return props.weather === undefined ? <div>loading...</div> : (
         <div className={"flex-container"}>
