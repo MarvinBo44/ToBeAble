@@ -11,27 +11,21 @@ h2{
     justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
+    text-align: center;
 }
 
 .activityOutput{
-    /*color: whitesmoke;*/
-    list-style: none;
-    border: 2px solid black;
+    font-family: Roboto, serif;
+    border: 1px solid black;
     border-radius: 15px;
     margin: 10px;
-    padding-left: 10px;
     width: 350px;
+    padding: 5px;
 }
 
 .btnDetails{
-    text-align: right;
-    margin-left: 440px;
-    margin-bottom: 5px;
-    border-radius: 15px;
+
 }
 
 .activityBox{
-    font-family: "Roboto", Helvetica, sans-serif;
-    font-weight: normal;
-    text-align: center;
 }
