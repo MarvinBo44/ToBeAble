@@ -88,6 +88,8 @@ export default function AddActivity(props: SetDayActivity) {
             );
         }
 
+
+
     return <>
         <Button size={"small"}
                 color={"info"}
