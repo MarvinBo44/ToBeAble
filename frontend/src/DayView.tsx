@@ -23,14 +23,6 @@ export default function DayView(props: WeatherProps) {
         )
     }
 
-    // function getCurrentDate(): string {
-    //     const today = new Date();
-    //     const year = today.getFullYear();
-    //     const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    //     const day = today.getDate().toString().padStart(2, '0');
-    //     return `${year}-${month}-${day}`;
-    // }
-
     function getForecastByDate(date: string) {
         return props.weather?.forecast?.forecastday?.find(day => day.date === date);
     }
@@ -38,7 +30,7 @@ export default function DayView(props: WeatherProps) {
     const tomorrowWeather = getForecastByDate(new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0]);
     const dayAfterTomorrowWeather = getForecastByDate(new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0]);
 
-    function isWarm() {
+    function isWarmToday() {
         if (props.weather != undefined) {
             if (props.weather.current.temp_c >= 25) {
                 return true;
@@ -46,15 +38,46 @@ export default function DayView(props: WeatherProps) {
         }
     }
 
-    function isMiddle() {
+    function isWarmTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[1].day.maxtemp_c >= 25) {
+                return true;
+            }
+        }
+    }
+
+    function isWarmDayAfterTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[2].day.maxtemp_c >= 25) {
+                return true;
+            }
+        }
+    }
+
+    function isMiddleToday() {
         if (props.weather != undefined) {
             if (props.weather.current.temp_c >= 10 && props.weather.current.temp_c <= 24) {
                 return true;
             }
         }
     }
+    function isMiddleTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[1].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[0].day.maxtemp_c <= 24) {
+                return true;
+            }
+        }
+    }
 
-    function isCold() {
+    function isMiddleDayAfterTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[2].day.maxtemp_c >= 10 && props.weather.forecast.forecastday[1].day.maxtemp_c <= 24) {
+                return true;
+            }
+        }
+    }
+
+    function isColdToday() {
         if (props.weather != undefined) {
             if (props.weather.current.temp_c < 10) {
                 return true;
@@ -62,27 +85,66 @@ export default function DayView(props: WeatherProps) {
         }
     }
 
-    function isRaining() {
+
+    function isColdTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[1].day.maxtemp_c < 10) {
+                return true;
+            }
+        }
+    }
+
+    function isColdDayAfterTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[2].day.maxtemp_c < 10) {
+                return true;
+            }
+        }
+    }
+
+    function isRainingToday() {
         if (props.weather != undefined) {
             if (props.weather.current.precip_mm > 0) {
                 return true;
             }
         }
     }
+    function isRainingTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[1].day.daily_will_it_rain > 0) {
+                return true;
+            }
+        }
+    }
 
-    const filterAcitivities = props.dayActivities.filter((activity) =>{
-        return (activity.possibleWhenWarm === isWarm()  ||
-            activity.possibleWhenMiddle === isMiddle()  ||
-            activity.possibleWhenCold === isCold()) &&
-            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRaining)
+    function isRainingDayAfterTomorrow() {
+        if (props.weather != undefined) {
+            if (props.weather.forecast.forecastday[2].day.daily_will_it_rain > 0) {
+                return true;
+            }
+        }
+    }
+
+    const filterAcitivitiesToday = props.dayActivities.filter((activity) =>{
+        return (activity.possibleWhenWarm === isWarmToday()  ||
+            activity.possibleWhenMiddle === isMiddleToday()  ||
+            activity.possibleWhenCold === isColdToday()) &&
+            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingToday)
     });
 
-        // const filterAcitivities = props.dayActivities.filter(activity =>
-        // (activity.possibleWhenRaining || !isRaining()) &&
-        // (activity.possibleWhenWarm || !isWarm()) &&
-        // (activity.possibleWhenMiddle || !isMiddle()) &&
-        // (activity.possibleWhenCold || !isCold())
-        // );
+    const filterAcitivitiesTomorrow = props.dayActivities.filter((activity) =>{
+        return (activity.possibleWhenWarm === isWarmTomorrow()  ||
+                activity.possibleWhenMiddle === isMiddleTomorrow()  ||
+                activity.possibleWhenCold === isColdTomorrow()) &&
+            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingTomorrow())
+    });
+
+    const filterAcitivitiesDayAfterTomorrow = props.dayActivities.filter((activity) =>{
+        return (activity.possibleWhenWarm === isWarmDayAfterTomorrow()  ||
+                activity.possibleWhenMiddle === isMiddleDayAfterTomorrow()  ||
+                activity.possibleWhenCold === isColdDayAfterTomorrow()) &&
+            (activity.possibleWhenRaining ? true : activity.possibleWhenRaining === !isRainingDayAfterTomorrow())
+    });
 
     return props.weather === undefined ? <div>loading...</div> : (
         <div className={"flex-container"}>
@@ -92,7 +154,7 @@ export default function DayView(props: WeatherProps) {
                         {/*<h2>{getCurrentDate()}</h2>*/}
                         <h2>Heute</h2>
                         <div className={"activityBox"}>
-                            {filterAcitivities.map(daily =>
+                            {filterAcitivitiesToday.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
                         </div>
@@ -105,7 +167,7 @@ export default function DayView(props: WeatherProps) {
                         {/*<h2>{tomorrowWeather.date}</h2>*/}
                         <h2>Morgen</h2>
                         <div className={"activityBox"}>
-                            {filterAcitivities.map(daily =>
+                            {filterAcitivitiesTomorrow.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
                         </div>
@@ -118,7 +180,7 @@ export default function DayView(props: WeatherProps) {
                         {/*<h2>{dayAfterTomorrowWeather.date}</h2>*/}
                         <h2>Übermorgen</h2>
                         <div className={"activityBox"}>
-                            {filterAcitivities.map(daily =>
+                            {filterAcitivitiesDayAfterTomorrow.map(daily =>
                                 <ActivityCard key={daily.id} dayActivity={daily} />
                             )}
                         </div>
