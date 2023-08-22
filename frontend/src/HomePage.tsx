@@ -1,9 +1,8 @@
-import DayView, {Activity} from "./DayView.tsx";
+import DayView from "./DayView.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import MenuBar from "./Menubar/MenuBar.tsx";
 import Settings from "./Settings.tsx";
-
 
 export type Weather = {
     "location": {
@@ -3008,7 +3007,7 @@ export type Activity = {
     possibleWhenRaining: boolean,
     possibleWithChildren: boolean,
     insideActivity: boolean,
-    outsideActivity: boolean,
+    outsideActivity: boolean
 }
 
 export default function HomePage(){
@@ -3031,7 +3030,6 @@ export default function HomePage(){
     }, []);
 
 
-
     useEffect(() => {
         axios({
             // url: "http://api.weatherapi.com/v1/forecast.json?key=6cc628764c7547e298d143025230108&q="+ort+"&days=3&aqi=yes&alerts=no",
@@ -3042,15 +3040,11 @@ export default function HomePage(){
         });
     }, [city]);
 
-    console.log(city)
-    console.log("https://api.weatherapi.com/v1/forecast.json?key=dcf0dc2ec78e416e81375800232108&q="+city+"&days=3&aqi=yes&alerts=no")
-
     return (
         <>
             {weather != undefined && <MenuBar weather={weather} city={city}/>}
             <Settings setDayActivity={setDayActivity} setCity={setCity}/>
             {weather != undefined && <DayView weather={weather} dayActivities={dayActivities}/>}
-            {/*<SearchCity setCity={setCity}></SearchCity>*/}
         </>
     )
 }

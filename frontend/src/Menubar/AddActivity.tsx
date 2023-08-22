@@ -6,10 +6,13 @@ import {
         FormGroup, FormControlLabel, FormLabel, Checkbox, TextField
         } from '@mui/material';
 import {useNavigate} from "react-router-dom";
+import {Activity} from "../HomePage.tsx";
 
+type SetDayActivity = {
+    setDayActivity: (newActivities: Activity[]) => void,
+}
 
-
-export default function AddActivity(props) {
+export default function AddActivity(props: SetDayActivity) {
 
     const [possibleWhenWarm, setPossibleWhenWarm] = useState(false)
     const [possibleWhenMiddle, setPossibleWhenMiddle] = useState(false)
@@ -84,8 +87,6 @@ export default function AddActivity(props) {
             }
             );
         }
-
-
 
     return <>
         <Button size={"small"}

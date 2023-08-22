@@ -7,14 +7,11 @@ type WeatherProps = {
     dayActivities: Activity[];
 }
 
-
 type ActivityDataProps = {
     dayActivity: Activity
 }
 
 export default function DayView(props: WeatherProps) {
-
-
 
     function ActivityCard(props: ActivityDataProps) {
         return (
@@ -42,26 +39,34 @@ export default function DayView(props: WeatherProps) {
     const dayAfterTomorrowWeather = getForecastByDate(new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0]);
 
     function isWarm() {
-        if (props.weather.current.temp_c >= 25) {
-            return true;
+        if (props.weather != undefined) {
+            if (props.weather.current.temp_c >= 25) {
+                return true;
+            }
         }
     }
 
     function isMiddle() {
-        if (props.weather.current.temp_c >= 10 && props.weather.current.temp_c <= 24){
-            return true;
+        if (props.weather != undefined) {
+            if (props.weather.current.temp_c >= 10 && props.weather.current.temp_c <= 24) {
+                return true;
+            }
         }
     }
 
     function isCold() {
-        if (props.weather.current.temp_c < 10) {
-            return true;
+        if (props.weather != undefined) {
+            if (props.weather.current.temp_c < 10) {
+                return true;
+            }
         }
     }
 
     function isRaining() {
-        if (props.weather.current.precip_mm > 0) {
-            return true;
+        if (props.weather != undefined) {
+            if (props.weather.current.precip_mm > 0) {
+                return true;
+            }
         }
     }
 

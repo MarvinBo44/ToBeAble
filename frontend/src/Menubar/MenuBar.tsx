@@ -8,7 +8,6 @@ type WeatherProps = {
     city: string;
 }
 
-
 export default function MenuBar(props: WeatherProps) {
     return props.weather === undefined ? <div>loading</div> :
     <Grid container
